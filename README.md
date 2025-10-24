@@ -131,7 +131,7 @@ Edit `src/main.cpp` to set device type:
 Set unique device identifier in `src/main.cpp`:
 
 ```cpp
-#define DEVICE_ID  "B.R.A.V.O._001"  // Change for each device
+#define DEVICE_ID  "BRAVO_001"  // Change for each device
 ```
 
 ### LoRa Frequency
@@ -231,7 +231,7 @@ Provides Bluetooth Low Energy interface for device configuration.
 **Example:**
 ```cpp
 BLEConfig ble;
-ble.begin("B.R.A.V.O._COLLAR_001");
+ble.begin("BRAVO_COLLAR_001");
 
 void loop() {
     ble.update();
@@ -288,7 +288,7 @@ OTA ota;
 
 void setup() {
     if (ota.connectWiFi("MyNetwork", "MyPassword")) {
-        ota.begin("B.R.A.V.O._COLLAR_001", "secure_password");
+        ota.begin("BRAVO_COLLAR_001", "secure_password");
     }
 }
 
@@ -317,7 +317,7 @@ GPSData gpsData = gps.getData();
 IMUData imuData = imu.getData();
 
 String json = telemetry.createFullTelemetry(
-    gpsData, imuData, "B.R.A.V.O._001", 85
+    gpsData, imuData, "BRAVO_001", 85
 );
 
 lora.sendMessage(json);
@@ -329,7 +329,7 @@ lora.sendMessage(json);
 
 ```json
 {
-  "device_id": "B.R.A.V.O._001",
+  "device_id": "BRAVO_001",
   "timestamp": 123456,
   "type": "full",
   "battery": 85,

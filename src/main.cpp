@@ -19,7 +19,7 @@
 #include "Telemetry.h"
 
 // Device configuration
-#define DEVICE_ID           "B.R.A.V.O._001"
+#define DEVICE_ID           "BRAVO_001"
 #define DEVICE_TYPE_COLLAR  true  // Set to false for dongle
 
 // Timing intervals (milliseconds)
