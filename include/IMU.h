@@ -1,6 +1,6 @@
 /**
  * @file IMU.h
- * @brief IMU (Inertial Measurement Unit) module for B.R.A.V.O collar
+ * @brief IMU (Inertial Measurement Unit) module for B.R.A.V.O. collar
  * 
  * This module handles accelerometer and gyroscope data from the MPU6050
  * for activity tracking and motion detection.

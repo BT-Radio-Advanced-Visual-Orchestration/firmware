@@ -1,12 +1,12 @@
 /**
  * @file main.cpp
- * @brief Main firmware file for B.R.A.V.O (Bluetooth Radio Advanced Visual Orchestration)
+ * @brief Main firmware file for B.R.A.V.O. (Bluetooth Radio Advanced Visual Orchestration)
  * 
  * This is the main entry point for the ESP32 firmware running on both collars and dongle.
  * It integrates LoRa communication, GPS tracking, IMU motion sensing, BLE configuration,
  * OTA updates, and JSON telemetry formatting.
  * 
- * @author B.R.A.V.O Team
+ * @author B.R.A.V.O. Team
  * @date 2025
  */
 
@@ -19,7 +19,7 @@
 #include "Telemetry.h"
 
 // Device configuration
-#define DEVICE_ID           "BRAVO_001"
+#define DEVICE_ID           "B.R.A.V.O._001"
 #define DEVICE_TYPE_COLLAR  true  // Set to false for dongle
 
 // Timing intervals (milliseconds)
@@ -63,7 +63,7 @@ uint8_t getBatteryLevel() {
  * @brief Initialize all modules
  */
 void initializeModules() {
-    Serial.println("=== B.R.A.V.O Firmware Initialization ===");
+    Serial.println("=== B.R.A.V.O. Firmware Initialization ===");
     Serial.print("Device ID: ");
     Serial.println(DEVICE_ID);
     Serial.print("Device Type: ");

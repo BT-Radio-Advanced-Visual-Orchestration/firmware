@@ -1,12 +1,12 @@
-# B.R.A.V.O Firmware
+# B.R.A.V.O. Firmware
 
 **Bluetooth Radio Advanced Visual Orchestration**
 
-ESP32 firmware for B.R.A.V.O collars and dongle with LoRa communication, GPS tracking, IMU motion sensing, BLE configuration, and OTA updates.
+ESP32 firmware for B.R.A.V.O. collars and dongle with LoRa communication, GPS tracking, IMU motion sensing, BLE configuration, and OTA updates.
 
 ## Project Overview
 
-This firmware powers both the collar devices and the dongle in the B.R.A.V.O system. It provides:
+This firmware powers both the collar devices and the dongle in the B.R.A.V.O. system. It provides:
 
 - **LoRa Communication**: Long-range radio communication between collars and dongle (915 MHz)
 - **GPS Tracking**: Real-time location tracking using GPS module
@@ -131,7 +131,7 @@ Edit `src/main.cpp` to set device type:
 Set unique device identifier in `src/main.cpp`:
 
 ```cpp
-#define DEVICE_ID  "BRAVO_001"  // Change for each device
+#define DEVICE_ID  "B.R.A.V.O._001"  // Change for each device
 ```
 
 ### LoRa Frequency
@@ -231,7 +231,7 @@ Provides Bluetooth Low Energy interface for device configuration.
 **Example:**
 ```cpp
 BLEConfig ble;
-ble.begin("BRAVO_COLLAR_001");
+ble.begin("B.R.A.V.O._COLLAR_001");
 
 void loop() {
     ble.update();
@@ -288,7 +288,7 @@ OTA ota;
 
 void setup() {
     if (ota.connectWiFi("MyNetwork", "MyPassword")) {
-        ota.begin("BRAVO_COLLAR_001", "secure_password");
+        ota.begin("B.R.A.V.O._COLLAR_001", "secure_password");
     }
 }
 
@@ -317,7 +317,7 @@ GPSData gpsData = gps.getData();
 IMUData imuData = imu.getData();
 
 String json = telemetry.createFullTelemetry(
-    gpsData, imuData, "BRAVO_001", 85
+    gpsData, imuData, "B.R.A.V.O._001", 85
 );
 
 lora.sendMessage(json);
@@ -329,7 +329,7 @@ lora.sendMessage(json);
 
 ```json
 {
-  "device_id": "BRAVO_001",
+  "device_id": "B.R.A.V.O._001",
   "timestamp": 123456,
   "type": "full",
   "battery": 85,
@@ -467,4 +467,4 @@ For issues and questions:
 
 **Version**: 1.0.0  
 **Last Updated**: 2025  
-**Maintainers**: B.R.A.V.O Team
+**Maintainers**: B.R.A.V.O. Team

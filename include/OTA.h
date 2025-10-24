@@ -1,6 +1,6 @@
 /**
  * @file OTA.h
- * @brief OTA (Over-The-Air) update module for B.R.A.V.O firmware
+ * @brief OTA (Over-The-Air) update module for B.R.A.V.O. firmware
  * 
  * This module handles wireless firmware updates via WiFi for remote
  * collar and dongle updates.
@@ -15,7 +15,7 @@
 
 // Default OTA settings
 #define OTA_PORT        3232
-#define OTA_PASSWORD    "bravo123"  // Change in production!
+#define OTA_PASSWORD    "b.r.a.v.o.123"  // Change in production!
 
 class OTA {
 public:

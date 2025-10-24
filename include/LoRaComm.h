@@ -1,6 +1,6 @@
 /**
  * @file LoRaComm.h
- * @brief LoRa communication module for B.R.A.V.O collar and dongle
+ * @brief LoRa communication module for B.R.A.V.O. collar and dongle
  * 
  * This module handles long-range radio communication between collars and dongle
  * using the LoRa protocol.

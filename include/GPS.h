@@ -1,6 +1,6 @@
 /**
  * @file GPS.h
- * @brief GPS module for B.R.A.V.O collar location tracking
+ * @brief GPS module for B.R.A.V.O. collar location tracking
  * 
  * This module handles GPS data acquisition and parsing for tracking
  * collar locations.

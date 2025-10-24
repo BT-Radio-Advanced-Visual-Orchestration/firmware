@@ -1,6 +1,6 @@
 /**
  * @file BLEConfig.h
- * @brief BLE configuration module for B.R.A.V.O collar settings
+ * @brief BLE configuration module for B.R.A.V.O. collar settings
  * 
  * This module provides Bluetooth Low Energy interface for configuring
  * collar settings via mobile app.

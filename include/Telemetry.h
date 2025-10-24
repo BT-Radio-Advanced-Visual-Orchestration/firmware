@@ -1,6 +1,6 @@
 /**
  * @file Telemetry.h
- * @brief JSON telemetry module for B.R.A.V.O data formatting
+ * @brief JSON telemetry module for B.R.A.V.O. data formatting
  * 
  * This module handles formatting of sensor data into JSON for transmission
  * to cloud services and mobile apps.
