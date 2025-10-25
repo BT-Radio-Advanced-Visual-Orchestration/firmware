@@ -1,6 +1,6 @@
 /**
  * @file OTA.h
- * @brief OTA (Over-The-Air) update module for B.R.A.V.O firmware
+ * @brief OTA (Over-The-Air) update module for B.R.A.V.O. firmware
  * 
  * This module handles wireless firmware updates via WiFi for remote
  * collar and dongle updates.

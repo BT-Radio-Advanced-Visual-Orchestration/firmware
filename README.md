@@ -1,12 +1,12 @@
-# B.R.A.V.O Firmware
+# B.R.A.V.O. Firmware
 
 **Bluetooth Radio Advanced Visual Orchestration**
 
-ESP32 firmware for B.R.A.V.O collars and dongle with LoRa communication, GPS tracking, IMU motion sensing, BLE configuration, and OTA updates.
+ESP32 firmware for B.R.A.V.O. collars and dongle with LoRa communication, GPS tracking, IMU motion sensing, BLE configuration, and OTA updates.
 
 ## Project Overview
 
-This firmware powers both the collar devices and the dongle in the B.R.A.V.O system. It provides:
+This firmware powers both the collar devices and the dongle in the B.R.A.V.O. system. It provides:
 
 - **LoRa Communication**: Long-range radio communication between collars and dongle (915 MHz)
 - **GPS Tracking**: Real-time location tracking using GPS module
@@ -467,4 +467,4 @@ For issues and questions:
 
 **Version**: 1.0.0  
 **Last Updated**: 2025  
-**Maintainers**: B.R.A.V.O Team
+**Maintainers**: B.R.A.V.O. Team
