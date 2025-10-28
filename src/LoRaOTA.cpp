@@ -163,8 +163,10 @@ bool LoRaOTA::sendFirmware(const uint8_t* firmwareData, size_t firmwareSize,
     metadata.totalChunks = (firmwareSize + LORA_OTA_CHUNK_SIZE - 1) / LORA_OTA_CHUNK_SIZE;
     metadata.crc32 = calculateCRC32(firmwareData, firmwareSize);
     metadata.protocolVersion = LORA_OTA_PROTOCOL_VERSION;
-    strncpy(metadata.version, version, sizeof(metadata.version) - 1);
-    metadata.version[sizeof(metadata.version) - 1] = '\0';
+    
+    // Safely copy version string with explicit null-termination
+    // Using snprintf instead of strncpy for better safety
+    snprintf(metadata.version, sizeof(metadata.version), "%s", version);
 
     // Store transmission state
     txFirmwareData = firmwareData;
