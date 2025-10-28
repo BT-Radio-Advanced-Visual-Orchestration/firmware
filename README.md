@@ -13,6 +13,7 @@ This firmware powers both the collar devices and the dongle in the B.R.A.V.O. sy
 - **IMU Sensing**: Motion and activity detection using MPU6050 accelerometer/gyroscope
 - **BLE Configuration**: Bluetooth Low Energy interface for device configuration via mobile app
 - **OTA Updates**: Over-the-air firmware updates via WiFi
+- **LoRa FOTA**: Firmware Over-The-Air updates via LoRa (no WiFi required)
 - **JSON Telemetry**: Standardized data formatting for cloud and app integration
 
 ## Hardware Requirements
@@ -62,6 +63,7 @@ firmware/
 │   ├── BLEConfig.h      # BLE configuration interface
 │   ├── IMU.h            # IMU sensor interface
 │   ├── OTA.h            # OTA update interface
+│   ├── LoRaOTA.h        # LoRa-based OTA update interface
 │   └── Telemetry.h      # JSON telemetry formatting
 ├── src/                 # Implementation files
 │   ├── main.cpp         # Main application entry point
@@ -70,6 +72,7 @@ firmware/
 │   ├── BLEConfig.cpp    # BLE implementation
 │   ├── IMU.cpp          # IMU implementation
 │   ├── OTA.cpp          # OTA implementation
+│   ├── LoRaOTA.cpp      # LoRa OTA implementation
 │   └── Telemetry.cpp    # Telemetry implementation
 ├── platformio.ini       # PlatformIO configuration
 ├── .gitignore          # Git ignore rules
@@ -297,6 +300,82 @@ void loop() {
 }
 ```
 
+### LoRaOTA Module
+
+Enables firmware over-the-air updates via LoRa communication without requiring WiFi.
+
+**Key Functions:**
+- `bool begin()` - Initialize LoRa OTA
+- `void handle()` - Process LoRa OTA messages (call in loop)
+- `bool beginUpdate()` - Prepare to receive firmware update
+- `bool sendFirmware(const uint8_t* data, size_t size, const char* version, const String& targetId)` - Send firmware to another device
+- `void abortUpdate()` - Abort current update
+- `LoRaOTAState getState()` - Get current update state
+- `uint8_t getProgress()` - Get update progress (0-100%)
+- `bool isUpdateInProgress()` - Check if update is active
+
+**Protocol Features:**
+- Chunked transfer (240 bytes per LoRa packet)
+- CRC32 validation for data integrity
+- Acknowledgment and retry mechanism
+- Automatic timeout handling
+- Supports large firmware binaries
+
+**Example (Receiver):**
+```cpp
+LoRaComm lora;
+LoRaOTA loraOta(lora);
+
+void setup() {
+    lora.begin();
+    loraOta.begin();
+    // Device is ready to receive firmware updates
+}
+
+void loop() {
+    loraOta.handle();  // Process incoming firmware chunks
+    
+    if (loraOta.isUpdateInProgress()) {
+        Serial.printf("Update progress: %d%%\n", loraOta.getProgress());
+    }
+}
+```
+
+**Example (Transmitter):**
+```cpp
+LoRaComm lora;
+LoRaOTA loraOta(lora);
+
+void sendFirmwareUpdate() {
+    // Load firmware binary (e.g., from SD card or SPIFFS)
+    const uint8_t* firmwareData = ...;
+    size_t firmwareSize = ...;
+    
+    // Send to specific device or broadcast
+    loraOta.sendFirmware(firmwareData, firmwareSize, "v2.0.0", "BRAVO_001");
+    
+    // Monitor progress in loop
+    while (loraOta.isUpdateInProgress()) {
+        loraOta.handle();
+        delay(10);
+    }
+}
+```
+
+**Update Protocol:**
+1. Transmitter sends INIT message with firmware metadata
+2. Receiver validates and prepares flash memory
+3. Transmitter sends firmware in chunks (with CRC32)
+4. Receiver validates each chunk and sends ACK/NACK
+5. On NACK, transmitter retries chunk (up to 3 times)
+6. After all chunks received, receiver validates and flashes
+7. Device automatically reboots with new firmware
+
+**Security Considerations:**
+- Implement firmware signing for production use
+- Add device authentication before allowing updates
+- Use encrypted LoRa communication for sensitive deployments
+
 ### Telemetry Module
 
 Formats sensor data into JSON for transmission and cloud integration.
@@ -461,7 +540,7 @@ For issues and questions:
 - [ ] Add data logging to SD card
 - [ ] Create mobile app for configuration
 - [ ] Add cloud integration (AWS IoT, Azure IoT Hub)
-- [ ] Implement FOTA (Firmware Over The Air) via LoRa
+- [x] Implement FOTA (Firmware Over The Air) via LoRa
 
 ---
 

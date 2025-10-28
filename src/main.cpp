@@ -16,6 +16,7 @@
 #include "BLEConfig.h"
 #include "IMU.h"
 #include "OTA.h"
+#include "LoRaOTA.h"
 #include "Telemetry.h"
 
 // Device configuration
@@ -34,6 +35,7 @@ GPS gps;
 BLEConfig bleConfig;
 IMU imu;
 OTA ota;
+LoRaOTA loraOta(lora);
 Telemetry telemetry;
 
 // Timing variables
@@ -110,6 +112,14 @@ void initializeModules() {
     //     Serial.println("✗ OTA WiFi connection failed");
     // }
 
+    // Initialize LoRa OTA
+    Serial.println("\nInitializing LoRa OTA...");
+    if (loraOta.begin()) {
+        Serial.println("✓ LoRa OTA ready");
+    } else {
+        Serial.println("✗ LoRa OTA failed");
+    }
+
     Serial.println("\n=== Initialization Complete ===\n");
 }
 
@@ -182,6 +192,12 @@ void handleTelemetry() {
  * @brief Handle incoming LoRa messages
  */
 void handleLoRaReceive() {
+    // LoRa OTA has priority for message handling when update is in progress
+    if (loraOta.isUpdateInProgress()) {
+        // LoRaOTA.handle() will process the messages
+        return;
+    }
+    
     if (lora.available()) {
         String message = lora.receiveMessage();
         int rssi = lora.getRSSI();
@@ -254,6 +270,9 @@ void setup() {
  * @brief Arduino main loop function
  */
 void loop() {
+    // Handle LoRa OTA updates (highest priority)
+    loraOta.handle();
+
     // Update GPS continuously
     handleGPS();
 
